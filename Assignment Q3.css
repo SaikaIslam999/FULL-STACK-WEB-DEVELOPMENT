@@ -1,0 +1,30 @@
+#mainTopic{
+    color: blue;
+}
+*{
+    text-align: center;
+}
+h1,h3 {
+    font-family: Georgia;
+}
+#para {
+    color: white;
+    background-color: cornflowerblue;
+}
+div button {
+    background-color:purple ;
+    color: azure;
+}
+button:hover{
+    background-color: yellow;
+    color: blue;
+}
+#para:nth-of-type(2n+1){
+    color: yellow;
+}
+#mainTopic::first-letter{
+    color: red;
+}
+#yes:checked + label {
+    color: darkgreen;
+}
