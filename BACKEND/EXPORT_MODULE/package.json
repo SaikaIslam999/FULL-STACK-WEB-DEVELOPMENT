@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "math.js",
   "dependencies": {
-    "figlet": "^1.9.4"
+    "figlet": "^1.9.4",
+    "random-words": "^2.0.0"
   },
   "devDependencies": {},
   "scripts": {
