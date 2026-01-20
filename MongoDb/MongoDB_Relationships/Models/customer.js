@@ -24,6 +24,13 @@ const customerSchema = new Schema({
     ],
 });
 
+customerSchema.post("findOneAndDelete", async(customer) => {
+    if(customer.orders.length){
+        let res = await Order.deleteMany({_id: {$in: customer.orders}});
+        console.log(res);
+    };
+});
+
 const Order = mongoose.model("Order" , orderSchema);
 const Customer = mongoose.model("Customer", customerSchema);
 
@@ -34,33 +41,59 @@ const findCustomer = async () => {
 };
 findCustomer();
 
-//const addCustomer = async () => {
-    // let cust1 = new Customer({
-    //     name: "Rahul Kumar"
-    // });
+const addCustomer = async () => {
+    let cust1 = new Customer({
+        name: "Rahul Kumar"
+    });
 
-    // let order1 = await Order.findOne({item:"Chips"});
-    // let order2 = await Order.findOne({item:"burger"});
+    let order1 = await Order.findOne({item:"Chips"});
+    let order2 = await Order.findOne({item:"burger"});
 
-    // cust1.orders.push(order1);
-    // cust1.orders.push(order2);
+    cust1.orders.push(order1);
+    cust1.orders.push(order2);
 
-    // let res = await cust1.save();
-    // console.log(res); 
+    let res = await cust1.save();
+    console.log(res); 
 
-//     let result = await Customer.find({});
-//     console.log(result);
-// };
-// addCustomer();
+    let result = await Customer.find({});
+    console.log(result);
+};
+addCustomer();
 
-// const addOrder = async () => {
-//     let result = await Order.insertMany([
-//         {item: "Samosa",price: 12},
-//         {item: "Chips", price: 10},
-//         {item: "burger", price: 40},
-//     ]);
-//     console.log(result);
-// };
+const addOrder = async () => {
+    let result = await Order.insertMany([
+        {item: "Samosa",price: 12},
+        {item: "Chips", price: 10},
+        {item: "burger", price: 40},
+    ]);
+    console.log(result);
+};
 // addOrder();
+
+//HANDLING DELETION
+
+const addCust = async () => {
+    let newCust = new Customer({
+        name: "Raj Kumar"
+    });
+    
+    let newOrder = new Order({
+        item: "chhole-Bature",
+        price: 60,
+    });
+
+    newCust.orders.push(newOrder);
+    await newOrder.save();
+    await newCust.save()
+};
+//addCust();
+
+const delcust = async () => {
+    let data =await Customer.findByIdAndDelete("696f066a3d02153146f3d0d3");
+    console.log(data);
+}
+
+delcust();
+
 
 
